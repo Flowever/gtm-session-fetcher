@@ -19,9 +19,9 @@ Pod::Spec.new do |s|
   DESC
 
   s.ios.deployment_target = '7.0'
-  s.osx.deployment_target = '10.8'
-  s.tvos.deployment_target = '9.0'
-  s.watchos.deployment_target = '2.0'
+  # s.osx.deployment_target = '10.8'
+  # s.tvos.deployment_target = '9.0'
+  # s.watchos.deployment_target = '2.0'
 
   s.default_subspec = 'Full'
 
@@ -44,6 +44,7 @@ Pod::Spec.new do |s|
         'Source/GTMSessionFetcherLogging.{h,m}',
         'Source/GTMSessionFetcherService.{h,m}',
         'Source/GTMSessionUploadFetcher.{h,m}'
+      sp.framework = 'Security'
     # sp.dependency 'GTMSessionFetcher/Core', "#{s.version}"
   end
 
