@@ -3,7 +3,7 @@
 Pod::Spec.new do |s|
   s.name        = 'GTMSessionFetcher-flow'
   s.module_name = "GTMSessionFetcher"
-  s.version     = '1.1.12'
+  s.version     = '1.1.13'
   s.authors     = 'Google Inc.'
   s.license     = { :type => 'Apache', :file => 'LICENSE' }
   s.homepage    = 'https://github.com/google/gtm-session-fetcher'
@@ -25,27 +25,21 @@ Pod::Spec.new do |s|
 
   s.default_subspec = 'Full'
 
-  # s.subspec 'Core' do |sp|
-  #   sp.source_files =
-  #     'Source/GTMSessionFetcher.{h,m}',
-  #     'Source/GTMSessionFetcherLogging.{h,m}',
-  #     'Source/GTMSessionFetcherService.{h,m}',
-  #     'Source/GTMSessionUploadFetcher.{h,m}'
-  #   sp.framework = 'Security'
-  # end
+  s.subspec 'Core' do |sp|
+    sp.source_files =
+      'Source/GTMSessionFetcher.{h,m}',
+      'Source/GTMSessionFetcherLogging.{h,m}',
+      'Source/GTMSessionFetcherService.{h,m}',
+      'Source/GTMSessionUploadFetcher.{h,m}'
+    sp.framework = 'Security'
+  end
 
   s.subspec 'Full' do |sp|
     sp.source_files =
         'Source/GTMGatherInputStream.{h,m}',
         'Source/GTMMIMEDocument.{h,m}',
-        'Source/GTMReadMonitorInputStream.{h,m}',
-
-        'Source/GTMSessionFetcher.{h,m}',
-        'Source/GTMSessionFetcherLogging.{h,m}',
-        'Source/GTMSessionFetcherService.{h,m}',
-        'Source/GTMSessionUploadFetcher.{h,m}'
-      sp.framework = 'Security'
-    # sp.dependency 'GTMSessionFetcher/Core', "#{s.version}"
+        'Source/GTMReadMonitorInputStream.{h,m}'
+    sp.dependency 'GTMSessionFetcher-flow/Core', "#{s.version}"
   end
 
   # s.subspec 'LogView' do |sp|

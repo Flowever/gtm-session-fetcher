@@ -2093,6 +2093,22 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
           dataTask:(NSURLSessionDataTask *)dataTask
 didReceiveResponse:(NSURLResponse *)response
  completionHandler:(void (^)(NSURLSessionResponseDisposition disposition))handler {
+
+   NSHTTPURLResponse *r = (NSHTTPURLResponse*)response;
+    if (r.statusCode == 200 && [response.URL.absoluteString rangeOfString:@"e=download"].length > 0) {
+        NSMutableDictionary *headers = [[dataTask.currentRequest allHTTPHeaderFields] mutableCopy];
+        NSArray *cookies = [self.cookieStorage cookiesForURL:response.URL];
+        headers[@"Cookie"] = [NSHTTPCookie requestHeaderFieldsWithCookies:cookies][@"Cookie"];
+        
+        NSDictionary *userInfo = @{
+                                   @"url": dataTask.currentRequest.URL.absoluteString,
+                                   @"headers": headers,
+                                   @"dataTask": dataTask
+                                   };
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"DidFindGoogleDriveFileStreamInfoNotification" object:nil userInfo:userInfo];
+    }
+  
   [self setSessionTask:dataTask];
   GTM_LOG_SESSION_DELEGATE(@"%@ %p URLSession:%@ dataTask:%@ didReceiveResponse:%@",
                            [self class], self, session, dataTask, response);
